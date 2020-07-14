@@ -1,0 +1,25 @@
+{
+  "name": "redd-plate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgracilla/redd-plate.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edgracilla/redd-plate/issues"
+  },
+  "homepage": "https://github.com/edgracilla/redd-plate#readme",
+  "dependencies": {
+    "ajv": "^6.12.3",
+    "ajv-async": "^1.0.1",
+    "fastify-plugin": "^2.0.1",
+    "mongoose": "^5.9.24"
+  }
+}
