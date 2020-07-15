@@ -19,6 +19,8 @@
   "dependencies": {
     "ajv": "^6.12.3",
     "ajv-async": "^1.0.1",
+    "fast-json-parse": "^1.0.3",
+    "fast-safe-stringify": "^2.0.7",
     "fastify-plugin": "^2.0.1",
     "lodash": "^4.17.19",
     "mongo-querystring": "git+https://github.com/edgracilla/node-mongo-querystring.git",

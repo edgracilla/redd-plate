@@ -27,13 +27,13 @@ const vtmp = {
 		type: 'object',
 		additionalProperties: false,
 		properties: {
-			q: { type: 'string' },
 			sort: { type: 'string' },
 			near: { type: 'string' },
 			page: { type: 'integer' },
+			limit: { type: 'integer' },
 			expand: { type: 'string' },
-			listOnly: { type: 'boolean' },
-			docsPerPage: { type: 'integer' }
+			search: { type: 'string' },
+			listOnly: { type: 'boolean' }
 		}
 	}
 }
@@ -103,17 +103,16 @@ class BaseController {
 			}, [])
 
 		this.mqs = new MongoQS({
-			textSearchKey: 'q',
 			betweens: dateFields,
 			whitelist: whitelistParams,
 			blacklist: {
-				q: true,
 				page: true,
 				sort: true,
 				near: true,
+				limit: true,
 				expand: true,
-				listOnly: true,
-				docsPerPage: true
+				search: true,
+				listOnly: true
 			}
 		})
 	}
