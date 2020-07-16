@@ -52,6 +52,35 @@ class BaseModel {
 		return doc
 	}
 
+	static async _readByProviderId(pid, options) {
+		const { expand } = options || {}
+		let objectId = null
+		let doc = null
+
+		if (this.cacher) {
+			objectId = await this._cache('get', pid)
+		}
+
+		if (objectId) {
+			return await this._read(objectId)
+		} else {
+			doc = await this.findOne({ providerId: pid }).exec()
+			if (!doc) return doc
+
+			doc = doc.toObject()
+			if (this.cacher) {
+				await this._cache('set', doc)
+				await this.cacher.set(`${this.resource}:${pid}`, serialize(doc._id))
+			}
+		}
+
+		if (expand) {
+			doc = await this._expand(doc, expand)
+		}
+
+		return doc
+	}
+
 	static async _update(query, update, options) {
 		let { expand, soft } = options || {}
 		let doc = await this.findOne(query).exec()
