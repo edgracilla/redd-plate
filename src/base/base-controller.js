@@ -116,52 +116,6 @@ class BaseController {
 			}
 		})
 	}
-
-	// -- utilities
-
-	logActivity(userMeta, doc, resource) {
-		this.broker.emit('activities.onLogActivity', {
-			resource: resource || this.resource,
-			changeLog: doc.changeLog,
-			recordId: doc._id,
-			meta: userMeta
-		})
-	}
-
-	pushNotify(userMeta, data) {
-		if (data.message) {
-			this.broker.emit('notifications.onPushNotify', data, userMeta)
-		}
-	}
-
-	feedStamp(action, doc) {
-		if (['post', 'update', 'delete'].includes(action)) {
-			const query = action === 'delete' ? { _id: doc } : { _id: doc._id }
-
-			this.broker.emit('feeds.onStamp', {
-				resource: this.resource,
-				query, action, doc
-			})
-		}
-	}
-
-	errLog(err) {
-		if (!process.env.NODE_ENV) {
-			console.log('--- Err Log ---')
-			console.log(err)
-			console.log('--- Err Log ---')
-		}
-
-		this.broker.emit('error-logs.onLog', this.resource, err)
-	}
-	
-	sysLog(err) {
-		this.broker.emit('system-logs.onLog', this.resource, err)
-	}
-
-	auditLog(doc, meta) {
-		this.broker.emit('audit-logs.onLog', this.resource, doc, meta)
-	}
 }
 
 module.exports = BaseController
