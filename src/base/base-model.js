@@ -39,7 +39,7 @@ class BaseModel {
 
 		if (!doc) {
 			doc = await this.findOne({ _id }).exec()
-			if (!doc) return doc
+			if (!doc) return null
 
 			doc = doc.toObject()
 			if (this.cacher) await this._cache('set', doc)
@@ -65,12 +65,12 @@ class BaseModel {
 			return await this._read(objectId)
 		} else {
 			doc = await this.findOne({ providerId: pid }).exec()
-			if (!doc) return doc
+			if (!doc) return null
 
 			doc = doc.toObject()
 			if (this.cacher) {
 				await this._cache('set', doc)
-				await this.cacher.set(`${this.resource}:${pid}`, serialize(doc._id))
+				await this.cacher.set(`${this.resource}:${pid}`, doc._id)
 			}
 		}
 
