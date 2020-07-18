@@ -53,6 +53,7 @@ class BaseModel {
 	}
 
 	static async _readByProviderId(pid, options) {
+		const key = `${this.resource}:${pid}`
 		const { expand } = options || {}
 		let objectId = null
 		let doc = null
@@ -65,12 +66,13 @@ class BaseModel {
 			return await this._read(objectId)
 		} else {
 			doc = await this.findOne({ providerId: pid }).exec()
+
 			if (!doc) return null
 
 			doc = doc.toObject()
 			if (this.cacher) {
 				await this._cache('set', doc)
-				await this.cacher.set(`${this.resource}:${pid}`, doc._id)
+				await this.cacher.set(key, serialize(doc._id))
 			}
 		}
 
