@@ -17,7 +17,7 @@ function apiResp (reply, payload, code = 200) {
       .send({
         code: 404,
         error: 'Not found',
-        message: 'The specified resource not found.'
+        message: 'Either the specified resource not found or you are not authorized to perform the operation.'
       })
   }
 
