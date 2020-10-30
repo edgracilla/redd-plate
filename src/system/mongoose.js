@@ -7,8 +7,11 @@ function inject(fastify, options, next) {
 	const { rs, type, sslCA} = options
 	const logger = fastify.log
 
+	const targetUrl = options.url
+
 	delete options.sslCA
 	delete options.type
+	delete options.url
 	delete options.rs
 	
 	options = Object.assign({}, options, {
@@ -35,7 +38,7 @@ function inject(fastify, options, next) {
 	let isRegistered = false
 
 	mongoose
-		.connect(options.url, options)
+		.connect(targetUrl, options)
 		.then(db => {
 			logger.info(`Connected to MongoDB (${options.dbName})`)
 
